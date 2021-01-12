@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.3'
 
 services:
 
@@ -29,9 +29,11 @@ services:
       WORDPRESS_NONCE_SALT: ${WP_NONCE_SALT}
       WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX}
       WORDPRESS_DEBUG: ${WP_DEBUG}
+      APP_URL: ${APP_URL}
+    command: /bin/bash -c "envsubst '$${APP_URL}'< /etc/apache2/localhost.conf > /etc/apache2/sites-enabled/000-default.conf && apache2-foreground"
     volumes:
       - ./../:/var/www/html
-      - ./compose/web/localhost.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./compose/web/localhost.conf:/etc/apache2/localhost.conf
     networks:
       - internal
 
