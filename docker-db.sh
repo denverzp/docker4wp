@@ -1,9 +1,9 @@
 #!/bin/sh
 
-container=$(grep -Po 'DB_CONTAINER_NAME=\K(.*)' ./.containerid)
+CONTAINER=$(grep -Po 'DB_CONTAINER_NAME=\K(.*)' ./.containerid)
 
-if [[ "$OSTYPE" == "msys" ]]; then
-    winpty docker exec -it ${container} bash
+if [ "$OSTYPE" = "msys" ]; then
+    winpty docker exec -it ${CONTAINER} bash
 else
-    docker exec -it ${container} bash
+    docker exec -it ${CONTAINER} bash
 fi

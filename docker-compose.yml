@@ -39,6 +39,9 @@ services:
       - ${DB_PORT}:3306
     volumes:
       - local_db_data:/var/lib/mysql
+      - ./compose/dbdump:/var/lib/dbdump
+      - ./compose/scripts/import-database.sh:/usr/local/bin/import-database.sh
+      - ./compose/scripts/dump-database.sh:/usr/local/bin/dump-database.sh
     networks:
       - internal
 

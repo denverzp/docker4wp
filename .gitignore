@@ -1,2 +1,5 @@
 .containerid
 .env
+
+compose/dbdump/*
+!compose/dbdump/.gitkeep

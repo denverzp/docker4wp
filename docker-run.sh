@@ -3,6 +3,7 @@
 source ./.env
 source ./compose/scripts/b-log.sh
 
+LOG_LEVEL_ALL
 
 if [ ! -f ./.env ]; then
 	FATAL "File .env is not found. You must have a .env file in this directory"
@@ -42,3 +43,12 @@ if [ "$APP_ENV" == "prod" ]; then
 else
   docker-compose up
 fi
+
+# import database
+DEBUG "###### Start import DB dump #####"
+if [ "$OSTYPE" = "msys" ]; then
+    winpty docker exec -it $DB_CONTAINER_NAME bash -c "sh /usr/local/bin/import-database.sh"
+else
+    docker exec -it $DB_CONTAINER_NAME bash -c "sh /usr/local/bin/import-database.sh"
+fi
+DEBUG "###### Finished import DB dump #####"

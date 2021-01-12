@@ -2,22 +2,24 @@ FROM wordpress:5.6.0-php7.4-apache
 
 RUN apt-get update \
     && \
-    apt-get install --no-install-recommends --assume-yes --quiet ca-certificates \
+    apt-get install --no-install-recommends --assume-yes --quiet \
+    ca-certificates \
     curl \
     gettext-base \
     && \
     # load mhsendmail from Github
     curl --location --output /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
     && \
-    chmod +x /usr/local/bin/mhsendmail
-
-RUN echo 'sendmail_path="/usr/local/bin/mhsendmail --smtp-addr=mailhog_server:1025 --from=no-reply@docker.dev"' > /usr/local/etc/php/conf.d/mailhog.ini
+    chmod +x /usr/local/bin/mhsendmail \
+    && \
+    echo 'sendmail_path="/usr/local/bin/mhsendmail --smtp-addr=mailhog_server:1025 --from=no-reply@docker.dev"' > /usr/local/etc/php/conf.d/mailhog.ini
 
 # Alternative way - use Golang for get mhsendmail
 
 #RUN apt-get update \
 #    && \
-#    apt-get install --no-install-recommends --assume-yes --quiet ca-certificates \
+#    apt-get install --no-install-recommends --assume-yes --quiet \
+#    ca-certificates \
 #    curl \
 #    git \
 #    gettext-base \

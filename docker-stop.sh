@@ -3,6 +3,7 @@
 source ./.env
 source ./compose/scripts/b-log.sh
 
+LOG_LEVEL_ALL
 
 if [ ! -f ./.env ]; then
 	FATAL "File .env is not found. You must have a .env file in this directory"
@@ -31,6 +32,15 @@ else
 	FATAL "The .containerid file has corrupted."
 	rm -i ./.containerid
 fi
+
+# dump database
+DEBUG "###### Start dump DB #####"
+if [ "$OSTYPE" = "msys" ]; then
+    winpty docker exec -it $DB_CONTAINER_NAME bash -c "sh /usr/local/bin/dump-database.sh"
+else
+    docker exec -it $DB_CONTAINER_NAME bash -c "sh /usr/local/bin/dump-database.sh"
+fi
+DEBUG "###### Finished dump DB #####"
 
 DEBUG "###### Down dockers container #####"
 docker-compose down
