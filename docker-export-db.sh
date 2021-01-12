@@ -10,6 +10,3 @@ else
     docker exec -it $DB_CONTAINER_NAME bash -c "sh /usr/local/bin/dump-database.sh"
 fi
 DEBUG "###### Finished dump DB #####"
-
-DEBUG "###### Down dockers container #####"
-docker-compose down

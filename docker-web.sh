@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-CONTAINER=$(grep -Po 'WP_CONTAINER_NAME=\K(.*)' ./.containerid)
+source ./get-names.sh
 
 if [ "$OSTYPE" = "msys" ]; then
-    winpty docker exec -it ${CONTAINER} bash
+    winpty docker exec -it $WP_CONTAINER_NAME bash
 else
-    docker exec -it ${CONTAINER} bash
+    docker exec -it $WP_CONTAINER_NAME bash
 fi
