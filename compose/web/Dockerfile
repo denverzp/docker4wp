@@ -1,9 +1,9 @@
 FROM wordpress:5.6.0-php7.4-apache
 
 RUN apt-get update \
-    && apt-get install --assume-yes gettext-base\
-    && a2enmod headers
-    && a2enmod rewrite
+    && apt-get install --assume-yes gettext-base \
+    && a2enmod headers \
+    && a2enmod rewrite \
     # load mhsendmail from Github
     && curl --location --output /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
     && chmod +x /usr/local/bin/mhsendmail \
